@@ -1,3 +1,13 @@
+metadata:
+  name: blueprint-sample
+  labels:
+    app.kubernetes.io/name: k8s-blueprint-helm
+    app: ces
+  finalizers:
+    - a
+    - b
+    - c
+
 spec:
   displayName: "Blueprint Sample v6.834"
   blueprint:
@@ -51,3 +61,6 @@ spec:
         absent: true
       official/postgres:
         absent: true
+
+  blueprintMaskRef:
+    name: mask
