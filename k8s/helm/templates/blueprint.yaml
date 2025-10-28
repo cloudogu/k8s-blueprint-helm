@@ -1,0 +1,79 @@
+apiVersion: k8s.cloudogu.com/v2
+kind: Blueprint
+metadata:
+  name: blueprint-sample
+  labels:
+    app: ces
+    app.kubernetes.io/name: k8s-blueprint-helm
+spec:
+  displayName: {{ .Values.spec.displayName }}
+  blueprint:
+    config:
+      global:
+        {{- $cfgGlobalList := list -}}
+        {{- range $cfgGlobalKey, $cfgGlobalValues := .Values.spec.blueprint.config.global }}
+          {{- $item := deepCopy $cfgGlobalValues  -}}
+          {{- $_ := set $item "key" $cfgGlobalKey -}}
+          {{- $cfgGlobalList = append $cfgGlobalList $item -}}
+          {{- $cfgGlobalList | toYaml | nindent 8 -}}
+        {{- end }}
+      dogus:
+        {{- range $cfgDoguKey, $cfgDoguValues := .Values.spec.blueprint.config.dogus }}
+        {{- $cfgDoguList := list -}}
+        {{- toYaml $cfgDoguKey | nindent 8 }}:
+          {{- range $cfgDoguConfigKey, $cfgDoguConfigValues := $cfgDoguValues }}
+            {{- $item := deepCopy $cfgDoguConfigValues  -}}
+            {{- $_ := set $item "key" $cfgDoguConfigKey -}}
+            {{- $cfgDoguList = append $cfgDoguList $item -}}
+            {{- $cfgDoguList | toYaml | nindent 10 -}}
+          {{- end }}
+        {{- end }}
+    dogus:
+      {{- $doguList := list -}}
+      {{- range $doguKey, $doguValues := .Values.spec.blueprint.dogus }}
+        {{- $_ := set $doguValues "name" $doguKey -}}
+
+        {{- with $doguValues.platformConfig.additionalMounts -}}
+          {{- $doguMounts := list -}}
+
+          {{- with $doguValues.platformConfig.additionalMounts.configMaps -}}
+            {{- range $doguMountKey, $doguMountValues := $doguValues.platformConfig.additionalMounts.configMaps -}}
+              {{- $item := deepCopy $doguMountValues  -}}
+              {{- $_ := set $item "sourceType" "ConfigMap"  -}}
+              {{- $__ := set $item "name" $doguMountKey -}}
+              {{- $doguMounts = append $doguMounts $item  -}}
+            {{- end -}}
+          {{- end -}}
+
+          {{- with $doguValues.platformConfig.additionalMounts.secrets -}}
+            {{- range $doguMountKey, $doguMountValues := $doguValues.platformConfig.additionalMounts.secrets -}}
+              {{- $item := deepCopy $doguMountValues  -}}
+              {{- $_ := set $item "sourceType" "Secret"  -}}
+              {{- $__ := set $item "name" $doguMountKey -}}
+              {{- $doguMounts = append $doguMounts $item  -}}
+            {{- end -}}
+          {{- end -}}
+
+          {{- $addMounts := dict "additionalMounts" $doguMounts -}}
+          {{- $doguValues := set $doguValues.platformConfig "additionalMounts" $doguMounts -}}
+        {{- end -}}
+
+        {{- $doguList := append $doguList (deepCopy $doguValues) -}}
+        {{- $doguList | toYaml | nindent 6 -}}
+      {{- end -}}
+
+  {{/* spec.blueprintMask */}}
+  {{- with $mask := .Values.spec.blueprintMask -}}
+    {{- with $mask.dogus -}}
+      {{- $maskDoguList := list -}}
+      {{- range $maskDoguKey, $maskDoguValues := $mask.dogus -}}
+        {{- $item := deepCopy $maskDoguValues  -}}
+        {{- $_ := set $item "key" $maskDoguKey -}}
+        {{- $maskDoguList = append $maskDoguList $item -}}
+      {{- end -}}
+
+      {{- $maskDoguDict := dict "dogus" $maskDoguList -}}
+      {{- $maskDict := dict "blueprintMask" $maskDoguDict -}}
+      {{- $maskDict | toYaml | nindent 2 -}}
+    {{- end -}}
+  {{- end -}}

@@ -1,0 +1,53 @@
+spec:
+  displayName: "Blueprint Sample v6.834"
+  blueprint:
+    config:
+      global:
+        my/global/key:
+          value: "myValue"
+        global/to/be/delete:
+          absent: true
+      dogus:
+        mysql:
+          logging/root:
+            value: "WARN"
+          sa-ldap/password:
+            sensitive: true
+            secretRef:
+              name: "ldap-sa-secret"
+              key: "password"
+          to/be/deleted:
+            absent: true
+        redmine:
+          keyTest:
+            absent: true
+    dogus:
+      official/mysql:
+        version: "8.4.6-1"
+        platformConfig:
+          ResourceConfig:
+            MinVolumeSize: "2Gi"
+          additionalMounts:
+            configMaps:
+              key-1:
+                volume: "volume1"
+                subfolder: "about1"
+              key-2:
+                volume: "volume2"
+                subfolder: "about2"
+            secrets:
+              key-1:
+                volume: "sec-volume1"
+              key-2:
+                volume: "sec-volume2"
+      official/postgres:
+        version: "14.18-3"
+        platformConfig:
+          key1: val1
+
+  blueprintMask:
+    dogus:
+      official/mysql:
+        absent: true
+      official/postgres:
+        absent: true

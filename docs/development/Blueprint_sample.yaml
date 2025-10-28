@@ -1,0 +1,56 @@
+apiVersion: k8s.cloudogu.com/v2
+kind: Blueprint
+metadata:
+  labels:
+    app: ces
+    app.kubernetes.io/name: k8s-blueprint-lib
+  name: blueprint-sample
+spec:
+  displayName: "Blueprint Sample v6.834"
+  blueprint:
+    config:
+      global:
+        - key: "my/global/key"
+          value: "myValue"
+        - key: "global/to/be/delete"
+          absent: true
+      dogus:
+        mysql:
+          - key: "logging/root"
+            value: "WARN"
+          - key: "sa-ldap/password"
+            sensitive: true
+            secretRef:
+              name: "ldap-sa-secret"
+              key: "password"
+          - key: "to/be/deleted"
+            absent: true
+    dogus:
+      - name: "official/mysql"
+        version: "8.4.6-1"
+        platformConfig:
+          ResourceConfig:
+            MinVolumeSize: "2Gi"
+          additionalMounts:
+            - sourceType: "ConfigMap"
+              name: "key-1"
+              volume: "volume1"
+              subfolder: "about1"
+            - sourceType: "ConfigMap"
+              name: "key-2"
+              volume: "volume2"
+              subfolder: "about2"
+            - sourceType: "Secret"
+              name: "key-1"
+              volume: "sec-volume1"
+            - sourceType: "Secret"
+              name: "key-2"
+              volume: "sec-volume2"
+      - name: "official/postgres"
+        version: "14.18-3"
+  blueprintMask:
+    dogus:
+      - name: "official/mysql"
+        absent: true
+      - name: "official/postgres"
+        absent: true
