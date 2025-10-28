@@ -38,29 +38,31 @@ spec:
       {{- range $doguKey, $doguValues := $dogus }}
         {{- $_ := set $doguValues "name" $doguKey -}}
 
-        {{- with $doguValues.platformConfig.additionalMounts -}}
-          {{- $doguMounts := list -}}
+        {{- with $doguValues.platformConfig -}}
+          {{- with $doguValues.platformConfig.additionalMounts -}}
+            {{- $doguMounts := list -}}
 
-          {{- with $doguValues.platformConfig.additionalMounts.configMaps -}}
-            {{- range $doguMountKey, $doguMountValues := $doguValues.platformConfig.additionalMounts.configMaps -}}
-              {{- $item := deepCopy $doguMountValues  -}}
-              {{- $_ := set $item "sourceType" "ConfigMap"  -}}
-              {{- $__ := set $item "name" $doguMountKey -}}
-              {{- $doguMounts = append $doguMounts $item  -}}
+            {{- with $doguValues.platformConfig.additionalMounts.configMaps -}}
+              {{- range $doguMountKey, $doguMountValues := $doguValues.platformConfig.additionalMounts.configMaps -}}
+                {{- $item := deepCopy $doguMountValues  -}}
+                {{- $_ := set $item "sourceType" "ConfigMap"  -}}
+                {{- $__ := set $item "name" $doguMountKey -}}
+                {{- $doguMounts = append $doguMounts $item  -}}
+              {{- end -}}
             {{- end -}}
-          {{- end -}}
 
-          {{- with $doguValues.platformConfig.additionalMounts.secrets -}}
-            {{- range $doguMountKey, $doguMountValues := $doguValues.platformConfig.additionalMounts.secrets -}}
-              {{- $item := deepCopy $doguMountValues  -}}
-              {{- $_ := set $item "sourceType" "Secret"  -}}
-              {{- $__ := set $item "name" $doguMountKey -}}
-              {{- $doguMounts = append $doguMounts $item  -}}
+            {{- with $doguValues.platformConfig.additionalMounts.secrets -}}
+              {{- range $doguMountKey, $doguMountValues := $doguValues.platformConfig.additionalMounts.secrets -}}
+                {{- $item := deepCopy $doguMountValues  -}}
+                {{- $_ := set $item "sourceType" "Secret"  -}}
+                {{- $__ := set $item "name" $doguMountKey -}}
+                {{- $doguMounts = append $doguMounts $item  -}}
+              {{- end -}}
             {{- end -}}
-          {{- end -}}
 
-          {{- $addMounts := dict "additionalMounts" $doguMounts -}}
-          {{- $doguValues := set $doguValues.platformConfig "additionalMounts" $doguMounts -}}
+            {{- $addMounts := dict "additionalMounts" $doguMounts -}}
+            {{- $doguValues := set $doguValues.platformConfig "additionalMounts" $doguMounts -}}
+          {{- end -}}
         {{- end -}}
 
         {{- $doguList := append $doguList (deepCopy $doguValues) -}}
