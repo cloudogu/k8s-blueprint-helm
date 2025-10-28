@@ -15,17 +15,16 @@ IMAGE_IMPORT_TARGET=image-import
 CHECK_VAR_TARGETS=check-all-vars-without-image
 
 include build/make/variables.mk
-INTEGRATION_TEST_NAME_PATTERN=.*_inttest$$
-
-include build/make/variables.mk
 include build/make/self-update.mk
 include build/make/dependencies-gomod.mk
 include build/make/build.mk
-include build/make/mocks.mk
 include build/make/test-common.mk
 include build/make/test-unit.mk
 include build/make/static-analysis.mk
 include build/make/clean.mk
+include build/make/digital-signature.mk
+include build/make/mocks.mk
+include build/make/k8s-controller.mk
 include build/make/release.mk
 
 
