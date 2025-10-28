@@ -1,10 +1,10 @@
 metadata:
-  name: blueprint-sample
+  name:  k8s-blueprint-helm
   labels:
     app.kubernetes.io/name: blueprint
 
 spec:
-  displayName: "Blueprint"
+  displayName: "Blueprint (core)"
   blueprint:
     dogus:
       hallowelt/bluespice:
