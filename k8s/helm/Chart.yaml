@@ -1,5 +1,5 @@
 apiVersion: v2
-name: Blueprint
+name: k8s-blueprint-helm
 description: A Helm chart for Blueprint
 
 # A chart can be either an 'application' or a 'library' chart.
