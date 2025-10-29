@@ -1,4 +1,4 @@
-apiVersion: k8s.cloudogu.com/v2
+apiVersion: k8s.cloudogu.com/v3
 kind: Blueprint
 metadata:
   {{- .Values.metadata | toYaml | nindent 2 }}
@@ -14,8 +14,8 @@ spec:
           {{- $item := deepCopy $cfgGlobalValues  -}}
           {{- $_ := set $item "key" $cfgGlobalKey -}}
           {{- $cfgGlobalList = append $cfgGlobalList $item -}}
-          {{- $cfgGlobalList | toYaml | nindent 8 -}}
         {{- end }}
+        {{- $cfgGlobalList | toYaml | nindent 8 -}}
       {{- end }}
       {{- with $configDogus := $config.dogus }}
       dogus:
@@ -26,8 +26,8 @@ spec:
             {{- $item := deepCopy $cfgDoguConfigValues  -}}
             {{- $_ := set $item "key" $cfgDoguConfigKey -}}
             {{- $cfgDoguList = append $cfgDoguList $item -}}
-            {{- $cfgDoguList | toYaml | nindent 10 -}}
           {{- end }}
+          {{- $cfgDoguList | toYaml | nindent 10 -}}
         {{- end }}
       {{- end }}
     {{- end }}
@@ -60,34 +60,32 @@ spec:
               {{- end -}}
             {{- end -}}
 
-            {{- $addMounts := dict "additionalMounts" $doguMounts -}}
             {{- $doguValues := set $doguValues.platformConfig "additionalMounts" $doguMounts -}}
           {{- end -}}
         {{- end -}}
-
-        {{- $doguList := append $doguList (deepCopy $doguValues) -}}
-        {{- $doguList | toYaml | nindent 6 -}}
+        {{- $doguList = append $doguList (deepCopy $doguValues) -}}
       {{- end -}}
-    {{- end -}}
+      {{- $doguList | toYaml | nindent 6 -}}
+    {{- end }}
 
-
-  {{/* spec.blueprintMask */}}
   {{ with $mask := .Values.spec.blueprintMask }}
-      {{- with $mask.dogus }}
+  blueprintMask:
+    {{ with $maskManifest := $mask.manifest }}
+      {{- with $maskManifest.dogus }}
         {{- $maskDoguList := list -}}
-        {{- range $maskDoguKey, $maskDoguValues := $mask.dogus -}}
+        {{- range $maskDoguKey, $maskDoguValues := $maskManifest.dogus -}}
           {{- $item := deepCopy $maskDoguValues  -}}
           {{- $_ := set $item "key" $maskDoguKey -}}
           {{- $maskDoguList = append $maskDoguList $item -}}
         {{- end -}}
-  blueprintMask:
-    dogus:
-        {{- $maskDoguList | toYaml | nindent 6 -}}
-    {{- end -}}
-  {{- end -}}
 
-  {{/* spec.blueprintMaskRef */}}
-  {{ with $maskRef := .Values.spec.blueprintMaskRef }}
-  blueprintMaskRef:
-      {{- $maskRef | toYaml | nindent 4 -}}
+    manifest:
+      dogus:
+          {{- $maskDoguList | toYaml | nindent 8 -}}
+      {{- end -}}
+    {{- end -}}
+    {{- with $maskRef := $mask.crRef }}
+    crRef:
+      {{- $maskRef | toYaml | nindent 6 -}}
+    {{- end -}}
   {{- end -}}

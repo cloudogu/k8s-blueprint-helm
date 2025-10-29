@@ -2,107 +2,67 @@ metadata:
   name:  k8s-blueprint-helm
   labels:
     app.kubernetes.io/name: blueprint
-
 spec:
   displayName: "Blueprint (core)"
   blueprint:
     dogus:
       hallowelt/bluespice:
         version: "4.5.5-3"
-        platformConfig:
-          reverseProxy:
-            maxBodySize: "0"
-
       hallowelt/bluespice-collabpadsbackend:
         version: "4.5.4-1"
-
       hallowelt/bluespice-mathoid:
         version: "4.5.4-1"
-
       hallowelt/bluespice-opensearch:
         version: "2.19.2-2"
-
       hallowelt/bluespice-pdfrenderer:
         version: "4.5.4-1"
-
       hallowelt/drawio:
         version: "24.7.17-2"
-
       hallowelt/mongodb:
         version: "8.0.4-3"
-
       official/cas:
         version: "7.7.7-4"
-
       official/gotenberg:
         version: "8.23.2-1"
-
       official/jenkins:
         version: "2.528.1-1"
-        platformConfig:
-          reverseProxy:
-            maxBodySize: "0"
-
       official/cockpit:
         version: "2.3.0-5"
-
       official/ldap:
         version: "2.6.8-4"
-
       official/mysql:
         version: "8.4.6-1"
-
       official/nexus:
         version": "3.82.0-2"
         platformConfig:
-          reverseProxy":
-            maxBodySize: "0"
           resource:
             minVolumeSize: "5Gi"
-
       official/plantuml:
         version: "2025.8-1"
-
       official/postfix:
         version: "3.10.4-1"
-
       official/postgresql:
         version: "14.18-3"
-
       official/redis:
         version: "6.2.20-1"
-
       official/redmine:
         version: "6.0.6-2"
-
       official/scm:
         version: "3.11.0-1"
-        platformConfig:
-          reverseProxy:
-            maxBodySize: "0"
-
       official/smeagol:
         version: "1.7.8-2"
-
       official/sonar:
         version: "25.1.0-6"
-
       official/swaggerui:
         version: "5.29.5-1"
-
       official/usermgt:
         version: "1.20.0-5"
-
       premium/admin:
         version: "2.15.1-1"
-
       premium/grafana:
         version: "11.5.2-2"
-
       premium/portainer:
         version: "2.27.9-2"
-
       premium/whitelabeling:
         version: "1.1.1-1"
-
-  blueprintMask: {}
+  blueprintMask: null
