@@ -13,5 +13,11 @@ include build/make/digital-signature.mk
 include build/make/k8s-component.mk
 include build/make/release.mk
 
+.PHONY: helm-release
+helm-release:
+	build/make/release.sh helm
 
 
+helm-print: ${BINARY_HELM}
+	@echo "Render helm chart using default values from 'values.yaml'"
+	@${BINARY_HELM} template --debug ${HELM_SOURCE_DIR}
