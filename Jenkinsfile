@@ -23,7 +23,7 @@ registry = "registry.cloudogu.com"
 registry_namespace = "k8s"
 k8sTargetDir = "target/k8s"
 helmChartDir = "${k8sTargetDir}/helm"
-helmChartName = "Blueprint"
+helmChartName = "k8s-blueprint"
 
 // Configuration of branches
 productionReleaseBranch = "main"
