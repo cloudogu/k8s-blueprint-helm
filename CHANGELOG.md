@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Added
+
+- [#3] documentation for the blueprint configuration
+
 ## [v1.0.0] - 2025-10-29
 
 ### Added
