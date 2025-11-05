@@ -144,11 +144,12 @@ metadata:
   name: blueprint-sample
 spec:
   blueprintMask:
-    dogus:
-      - name: "official/mysql"
-        absent: true
-      - name: "official/postgres"
-        absent: true
+    manifest:
+      dogus:
+        - name: "official/mysql"
+          absent: true
+        - name: "official/postgres"
+          absent: true
 
 ```
 
