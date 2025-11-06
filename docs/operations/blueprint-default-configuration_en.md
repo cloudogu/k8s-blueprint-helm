@@ -8,8 +8,15 @@ The following examples show where lists were replaced by mappings.
 
 **global configuration**
 
+<table>
+<tr>
+<th>Blueprint-Spec</th>
+<th>Helm-Values.yaml</th>
+</tr>
+<tr>
+<td>
+
 ```yaml
-# Blueprint
 apiVersion: k8s.cloudogu.com/v3
 kind: Blueprint
 metadata:
@@ -24,23 +31,41 @@ spec:
           key: "global/to/be/delete"
 ```
 
+</td>
+<td >
+
 ```yaml
-# values.yaml
 spec:
   blueprint:
     config:
       global:
         my/global/key:
           value: "myValue"
-        local/to/be/delete:
+        global/to/be/delete:
           absent: true
+
+
+
+
 ```
+
+</td>
+</tr>
+</table>
+
 
 
 **Dogu configuration**
 
+<table>
+<tr>
+<th>Blueprint-Spec</th>
+<th>Helm-Values.yaml</th>
+</tr>
+<tr>
+<td>
+
 ```yaml
-# Blueprint
 apiVersion: k8s.cloudogu.com/v3
 kind: Blueprint
 metadata:
@@ -61,8 +86,10 @@ spec:
               absent: true
 ```
 
+</td>
+<td >
+
 ```yaml
-# values.yaml
 spec:
   blueprint:
     config:
@@ -77,15 +104,27 @@ spec:
               key: "password"
           to/be/deleted:
             absent: true
-        redmine:
-          keyTest:
-            absent: true
+
+
+
+
 ```
+
+</td>
+</tr>
+</table>
 
 **Dogus with their platform configuration**
 
+<table>
+<tr>
+<th>Blueprint-Spec</th>
+<th>Helm-Values.yaml</th>
+</tr>
+<tr>
+<td>
+
 ```yaml
-# Blueprint
 apiVersion: k8s.cloudogu.com/v3
 kind: Blueprint
 metadata:
@@ -110,8 +149,10 @@ spec:
                 volume: "sec-volume1"
 ```
 
+</td>
+<td >
+
 ```yaml
-# values.yaml
 spec:
   blueprint:
     dogus:
@@ -131,12 +172,27 @@ spec:
             secrets:
               key-1:
                 volume: "sec-volume1"
+
+
+
 ```
+
+</td>
+</tr>
+</table>
+
 
 **blueprint mask configuration**
 
+<table>
+<tr>
+<th>Blueprint-Spec</th>
+<th>Helm-Values.yaml</th>
+</tr>
+<tr>
+<td>
+
 ```yaml
-# Blueprint
 apiVersion: k8s.cloudogu.com/v3
 kind: Blueprint
 metadata:
@@ -149,11 +205,12 @@ spec:
           absent: true
         - name: "official/postgres"
           absent: true
-
 ```
 
+</td>
+<td >
+
 ```yaml
-# values.yaml
 spec:
   blueprintMask:
     manifest:
@@ -162,4 +219,12 @@ spec:
           absent: true
         official/postgres:
           absent: true
+
+
+
+
 ```
+
+</td>
+</tr>
+</table>
