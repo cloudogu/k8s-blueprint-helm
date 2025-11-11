@@ -6,9 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## Added
+### Added
 
 - [#3] documentation for the blueprint configuration
+
+### Changed
+
+- [#5] Update dogus to newest versions.
 
 ## [v1.0.0] - 2025-10-29
 
