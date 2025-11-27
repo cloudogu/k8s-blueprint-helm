@@ -27,6 +27,7 @@ helmChartName = "k8s-blueprint"
 
 // Configuration of branches
 productionReleaseBranch = "main"
+developmentBranch = "develop"
 currentBranch = "${env.BRANCH_NAME}"
 
 node('docker') {
