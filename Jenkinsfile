@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('github.com/cloudogu/ces-build-lib@4.3.0')
+@Library('github.com/cloudogu/ces-build-lib@feature/153-support-release-of-multiple-major-versions')
 import com.cloudogu.ces.cesbuildlib.*
 
 // Creating necessary git objects
@@ -27,7 +27,6 @@ helmChartName = "k8s-blueprint"
 
 // Configuration of branches
 productionReleaseBranch = "main"
-developmentBranch = "develop"
 currentBranch = "${env.BRANCH_NAME}"
 
 node('docker') {
@@ -89,7 +88,9 @@ void stageAutomaticRelease() {
         }
 
         stage('Finish Release') {
-            gitflow.finishRelease(releaseVersion, productionReleaseBranch)
+            productionReleaseBranch = makefile.determineGitFlowMainBranch(productionReleaseBranch)
+            developmentBranch = makefile.determineGitFlowDevelopBranch()
+            gitflow.finishRelease(releaseVersion, productionReleaseBranch, developmentBranch)
         }
 
         stage('Add Github-Release') {
