@@ -33,7 +33,7 @@ spec:
       official/mysql:
         version: "8.4.6-1"
       official/nexus:
-        version": "3.82.0-2"
+        version: "3.82.0-2"
         platformConfig:
           resource:
             minVolumeSize: "5Gi"
