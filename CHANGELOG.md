@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update Bluespice, CAS and Sonar
+- [#7] support release of multiple major versions
 
 ### Fixed
 
