@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('github.com/cloudogu/ces-build-lib@4.3.0')
+@Library('github.com/cloudogu/ces-build-lib@4.4.0')
 import com.cloudogu.ces.cesbuildlib.*
 
 // Creating necessary git objects
@@ -26,8 +26,6 @@ helmChartDir = "${k8sTargetDir}/helm"
 helmChartName = "k8s-blueprint"
 
 // Configuration of branches
-productionReleaseBranch = "main"
-developmentBranch = "develop"
 currentBranch = "${env.BRANCH_NAME}"
 
 node('docker') {
@@ -89,10 +87,13 @@ void stageAutomaticRelease() {
         }
 
         stage('Finish Release') {
-            gitflow.finishRelease(releaseVersion, productionReleaseBranch)
+            productionReleaseBranch = makefile.determineGitFlowMainBranch()
+            developmentBranch = makefile.determineGitFlowDevelopBranch()
+            gitflow.finishRelease(releaseVersion, productionReleaseBranch, developmentBranch)
         }
 
         stage('Add Github-Release') {
+            productionReleaseBranch = makefile.determineGitFlowMainBranch()
             releaseId = github.createReleaseWithChangelog(releaseVersion, changelog, productionReleaseBranch)
         }
     }
