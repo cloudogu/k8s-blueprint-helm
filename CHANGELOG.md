@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update Bluespice, CAS and Sonar
+
 ### Fixed
 
 - Fix error that produced an invalid blueprint on helm applies.
