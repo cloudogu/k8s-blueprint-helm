@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('github.com/cloudogu/ces-build-lib@feature/153-support-release-of-multiple-major-versions')
+@Library('github.com/cloudogu/ces-build-lib@4.4.0')
 import com.cloudogu.ces.cesbuildlib.*
 
 // Creating necessary git objects
