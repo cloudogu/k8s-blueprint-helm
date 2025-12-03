@@ -7,7 +7,7 @@ spec:
   blueprint:
     dogus:
       hallowelt/bluespice:
-        version: "5.1.2-2"
+        version: "5.1.2-3"
       hallowelt/bluespice-collabpadsbackend:
         version: "5.1-1"
       hallowelt/bluespice-mathoid:
@@ -21,7 +21,7 @@ spec:
       hallowelt/mongodb:
         version: "8.0.4-4"
       official/cas:
-        version: "7.2.7-4"
+        version: "7.2.7-5"
       official/gotenberg:
         version: "8.23.2-1"
       official/jenkins:
@@ -33,7 +33,7 @@ spec:
       official/mysql:
         version: "8.4.6-1"
       official/nexus:
-        version": "3.82.0-2"
+        version: "3.82.0-2"
         platformConfig:
           resource:
             minVolumeSize: "5Gi"
@@ -52,7 +52,7 @@ spec:
       official/smeagol:
         version: "1.7.8-2"
       official/sonar:
-        version: "25.1.0-6"
+        version: "25.7.0-1"
       official/swaggerui:
         version: "5.29.5-1"
       official/usermgt:
