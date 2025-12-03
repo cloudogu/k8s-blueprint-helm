@@ -1,7 +1,7 @@
 # Set these to the desired values
 PROJECT_NAME=k8s-blueprint-helm
 ARTIFACT_ID=k8s-blueprint
-VERSION=1.1.0
+VERSION=1.2.0
 
 MAKEFILES_VERSION=10.5.0
 
