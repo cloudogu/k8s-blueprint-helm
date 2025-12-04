@@ -1,4 +1,4 @@
-# k8s-blueprint-helm
+# blueprint
 Cloudogu EcoSystem blueprint helm chart
 
 ---

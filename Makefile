@@ -1,5 +1,5 @@
 # Set these to the desired values
-PROJECT_NAME=k8s-blueprint-helm
+PROJECT_NAME=blueprint
 ARTIFACT_ID=k8s-blueprint
 VERSION=1.2.0
 
