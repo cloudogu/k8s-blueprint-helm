@@ -48,7 +48,7 @@ spec:
       official/redmine:
         version: "6.0.6-2"
       official/scm:
-        version: "3.11.0-1"
+        version: "3.11.1-2"
       official/smeagol:
         version: "1.7.8-2"
       official/sonar:
