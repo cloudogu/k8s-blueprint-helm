@@ -11,23 +11,27 @@ spec:
       global:
         {{- $cfgGlobalList := list -}}
         {{- range $cfgGlobalKey, $cfgGlobalValues := $configGlobal }}
-          {{- $item := deepCopy $cfgGlobalValues  -}}
-          {{- $_ := set $item "key" $cfgGlobalKey -}}
-          {{- $cfgGlobalList = append $cfgGlobalList $item -}}
+          {{- if $cfgGlobalValues -}}
+            {{- $item := deepCopy $cfgGlobalValues  -}}
+            {{- $_ := set $item "key" $cfgGlobalKey -}}
+            {{- $cfgGlobalList = append $cfgGlobalList $item -}}
+          {{- end }}
         {{- end }}
         {{- $cfgGlobalList | toYaml | nindent 8 -}}
       {{- end }}
       {{- with $configDogus := $config.dogus }}
       dogus:
         {{- range $cfgDoguKey, $cfgDoguValues := $configDogus  }}
-        {{- $cfgDoguList := list -}}
-        {{- toYaml $cfgDoguKey | nindent 8 }}:
-          {{- range $cfgDoguConfigKey, $cfgDoguConfigValues := $cfgDoguValues }}
-            {{- $item := deepCopy $cfgDoguConfigValues  -}}
-            {{- $_ := set $item "key" $cfgDoguConfigKey -}}
-            {{- $cfgDoguList = append $cfgDoguList $item -}}
+        {{- if $cfgDoguValues }}
+          {{- $cfgDoguList := list -}}
+          {{- toYaml $cfgDoguKey | nindent 8 }}:
+            {{- range $cfgDoguConfigKey, $cfgDoguConfigValues := $cfgDoguValues }}
+              {{- $item := deepCopy $cfgDoguConfigValues  -}}
+              {{- $_ := set $item "key" $cfgDoguConfigKey -}}
+              {{- $cfgDoguList = append $cfgDoguList $item -}}
+            {{- end }}
+            {{- $cfgDoguList | toYaml | nindent 10 -}}
           {{- end }}
-          {{- $cfgDoguList | toYaml | nindent 10 -}}
         {{- end }}
       {{- end }}
     {{- end }}
