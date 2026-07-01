@@ -17,7 +17,7 @@ makefile = new Makefile(this)
 
 // Configuration of repository
 repositoryOwner = "cloudogu"
-repositoryName = "k8s-blueprint-helm"
+repositoryName = "blueprint"
 project = "github.com/${repositoryOwner}/${repositoryName}"
 registry = "registry.cloudogu.com"
 registry_namespace = "k8s"
